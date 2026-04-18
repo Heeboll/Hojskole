@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Højeskole - om livet | Taastrup Medborgerhus</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --deep-forest: #1B4332;
+            --moss-green: #2D6A4F;
+            --sage: #52B788;
+            --warm-amber: #D4A373;
+            --burnt-orange: #BC6C25;
+            --clay: #E76F51;
+            --deep-wine: #6A040F;
+            --midnight: #10002B;
+            --gold: #DDA15E;
+            --cream: #FEFAE0;
+            --stone: #B7B7A4;
+            --ocean-blue: #457B9D;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0d1b1e 0%, #1b263b 50%, #0d1b2a 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .bg-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.12;
+            z-index: 0;
+            pointer-events: none;
+            animation: orb-drift 25s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, var(--deep-forest), transparent);
+            top: -15%; left: -10%;
+        }
+        .orb-2 {
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, var(--burnt-orange), transparent);
+            bottom: -15%; right: -10%;
+            animation-delay: -8s;
+        }
+        .orb-3 {
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, var(--ocean-blue), transparent);
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: -16s;
+        }
+
+        @keyframes orb-drift {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(40px, -20px) scale(1.05); }
+            66% { transform: translate(-30px, 30px) scale(0.95); }
+        }
+
+        .particles {
+            position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 1; pointer-events: none;
+            overflow: hidden;
+        }
+        .particle {
+            position: absolute;
+            width: 3px; height: 3px;
+            background: var(--gold);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float-particle 20s infinite linear;
+        }
+        .particle:nth-child(2n) { background: var(--sage); width: 2px; height: 2px; }
+        .particle:nth-child(3n) { background: var(--warm-amber); width: 4px; height: 4px; }
+        .particle:nth-child(4n) { background: var(--stone); width: 2px; height: 2px; }
+
+        @keyframes float-particle {
+            0% { transform: translateY(110vh) translateX(0); opacity: 0; }
+            10% { opacity: 0.5; }
+            90% { opacity: 0.5; }
+            100% { transform: translateY(-10vh) translateX(30px); opacity: 0; }
+        }
+
+        .wave-container {
+            position: fixed; bottom: 0; left: 0;
+            width: 100%; height: 200px;
+            z-index: 1; pointer-events: none;
+            overflow: hidden;
+        }
+        .wave {
+            position: absolute; bottom: 0; left: -50%;
+            width: 200%; height: 200px;
+            background: linear-gradient(90deg, var(--deep-forest), var(--moss-green), var(--sage));
+            opacity: 0.06;
+            border-radius: 50% 50% 0 0;
+            animation: wave-motion 15s ease-in-out infinite;
+        }
+        .wave:nth-child(2) { animation-delay: -7s; opacity: 0.04; height: 160px; }
+        @keyframes wave-motion {
+            0%, 100% { transform: translateX(0) translateY(0); }
+            50% { transform: translateX(-25%) translateY(-20px); }
+        }
+
+        .content {
+            position: relative; z-index: 10;
+            max-width: 1200px;
+            margin: 0 auto; padding: 2rem;
+        }
+
+        header { text-align: center; padding: 3rem 0 2rem; animation: fadeInDown 1s ease; }
+        .location-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--moss-green), var(--deep-forest));
+            padding: 0.6rem 1.8rem; border-radius: 50px;
+            font-size: 0.85rem; font-weight: 600;
+            letter-spacing: 2px; text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 20px rgba(45, 106, 79, 0.4);
+            animation: pulse-glow 3s infinite;
+        }
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 4px 20px rgba(45, 106, 79, 0.4); }
+            50% { box-shadow: 0 4px 30px rgba(45, 106, 79, 0.6); }
+        }
+
+        h1 {
+            font-size: 4.5rem; font-weight: 900;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg,
+                var(--deep-forest) 0%,
+                var(--sage) 20%,
+                var(--gold) 40%,
+                var(--warm-amber) 60%,
+                var(--clay) 80%,
+                var(--deep-wine) 100%);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient-shift 8s ease infinite, breathe 4s ease-in-out infinite;
+            filter: drop-shadow(0 0 40px rgba(82, 183, 136, 0.3));
+            letter-spacing: -2px; line-height: 1.1;
+        }
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes breathe {
+            0%, 100% { transform: scale(1) translateY(0); }
+            50% { transform: scale(1.02) translateY(-5px); }
+        }
+
+        .subtitle {
+            font-size: 1.3rem; color: var(--cream);
+            opacity: 0.9; font-weight: 300;
+            letter-spacing: 3px; margin-top: 1rem;
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem; align-items: center;
+            padding: 3rem 0 4rem;
+            animation: fadeIn 1s ease 0.3s both;
+        }
+        .hero-content h2 {
+            font-size: 2.5rem; margin-bottom: 1.5rem;
+            color: var(--gold); font-weight: 800; line-height: 1.2;
+        }
+        .hero-content p {
+            font-size: 1.15rem; line-height: 1.8;
+            color: #e0e0e0; margin-bottom: 1.5rem;
+        }
+        .highlight { color: var(--warm-amber); font-weight: 700; }
+        .time-badge {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            background: rgba(212, 163, 115, 0.15);
+            border: 1px solid rgba(212, 163, 115, 0.3);
+            padding: 0.8rem 1.5rem; border-radius: 50px;
+            font-size: 1.05rem; color: var(--warm-amber);
+            font-weight: 600; margin-top: 1rem;
+        }
+        .hero-image {
+            position: relative; border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.6);
+            transform: rotate(1deg);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .hero-image:hover {
+            transform: rotate(0deg) scale(1.03);
+            box-shadow: 0 30px 100px rgba(0, 0, 0, 0.7);
+        }
+        .hero-image img {
+            width: 100%; height: 380px;
+            object-fit: cover; display: block;
+        }
+        .image-caption {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            background: linear-gradient(to top, rgba(16, 0, 43, 0.95), transparent);
+            padding: 2.5rem 2rem 1.5rem;
+            color: white; font-weight: 600; font-size: 1.05rem;
+        }
+
+        .info-section { padding: 3rem 0; }
+        .section-title {
+            text-align: center; font-size: 2.2rem;
+            margin-bottom: 3rem; color: var(--warm-amber);
+            font-weight: 700;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+        }
+        .info-card {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative; overflow: hidden;
+        }
+        .info-card::before {
+            content: ''; position: absolute;
+            top: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(90deg, var(--deep-forest), var(--sage), var(--gold));
+            transform: scaleX(0);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .info-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+        }
+        .info-card:hover::before { transform: scaleX(1); }
+        .card-icon { font-size: 3rem; margin-bottom: 1.2rem; display: block; }
+        .card-title {
+            font-size: 1rem; font-weight: 700;
+            margin-bottom: 0.5rem; color: var(--gold);
+            text-transform: uppercase; letter-spacing: 1px;
+        }
+        .card-info { font-size: 1.3rem; font-weight: 800; color: white; }
+
+        .lifebook-section { padding: 5rem 0; }
+        .lifebook-intro {
+            text-align: center; max-width: 700px;
+            margin: 0 auto 3rem;
+            color: #d0d0d0; font-size: 1.1rem; line-height: 1.7;
+        }
+        .lifebook-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.5rem;
+        }
+        .lifebook-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 20px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        .lifebook-item::after {
+            content: ''; position: absolute;
+            bottom: 0; left: 0; width: 100%; height: 3px;
+            background: linear-gradient(90deg, var(--sage), var(--gold));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+        .lifebook-item:hover {
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.07);
+            border-color: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        .lifebook-item:hover::after { transform: scaleX(1); }
+        .lifebook-icon { font-size: 2.5rem; margin-bottom: 1rem; display: block; }
+        .lifebook-title {
+            font-weight: 700; color: var(--cream);
+            font-size: 1.05rem; margin-bottom: 0.3rem;
+        }
+        .lifebook-desc {
+            font-size: 0.85rem; color: rgba(255, 255, 255, 0.5);
+        }
+
+        .values-section { padding: 4rem 0; text-align: center; }
+        .values-grid {
+            display: flex; justify-content: center;
+            gap: 3rem; flex-wrap: wrap; margin-top: 2rem;
+        }
+        .value-item {
+            display: flex; flex-direction: column;
+            align-items: center; gap: 1rem;
+            animation: float-value 4s ease-in-out infinite;
+        }
+        .value-item:nth-child(2) { animation-delay: 1s; }
+        .value-item:nth-child(3) { animation-delay: 2s; }
+        .value-item:nth-child(4) { animation-delay: 3s; }
+        @keyframes float-value {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+        .value-circle {
+            width: 110px; height: 110px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--deep-forest), var(--moss-green));
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2.5rem;
+            box-shadow: 0 12px 35px rgba(27, 67, 50, 0.4);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .value-item:hover .value-circle {
+            transform: scale(1.12) rotate(8deg);
+            box-shadow: 0 18px 45px rgba(45, 106, 79, 0.5);
+        }
+        .value-text {
+            font-weight: 700; color: var(--cream);
+            font-size: 1.1rem; letter-spacing: 1px;
+        }
+
+        .gallery-section { padding: 4rem 0; }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem; margin-top: 2rem;
+        }
+        .gallery-item {
+            border-radius: 20px; overflow: hidden;
+            position: relative;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer;
+        }
+        .gallery-item:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+            z-index: 10;
+        }
+        .gallery-item img {
+            width: 100%; height: 260px;
+            object-fit: cover; display: block;
+            transition: transform 0.5s ease;
+        }
+        .gallery-item:hover img { transform: scale(1.1); }
+        .gallery-caption {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            background: linear-gradient(to top, rgba(16, 0, 43, 0.95), transparent);
+            padding: 2rem 1.5rem 1.2rem;
+            color: white; font-weight: 600; font-size: 1.05rem;
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .gallery-item:hover .gallery-caption { transform: translateY(0); }
+
+        .signup-section { padding: 4rem 0; display: flex; justify-content: center; }
+        .signup-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+            backdrop-filter: blur(25px);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 32px;
+            padding: 3.5rem; max-width: 520px; width: 100%;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+            position: relative; overflow: hidden;
+        }
+        .signup-card::after {
+            content: ''; position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(45, 106, 79, 0.12) 0%, transparent 70%);
+            animation: rotate 25s linear infinite;
+            pointer-events: none;
+        }
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .signup-title {
+            font-size: 2.2rem; text-align: center;
+            margin-bottom: 2.5rem; color: var(--gold);
+            position: relative; z-index: 1; font-weight: 800;
+        }
+        .form-group { margin-bottom: 1.8rem; position: relative; z-index: 1; }
+        label { display: block; margin-bottom: 0.6rem;
+            color: var(--cream); font-weight: 600; font-size: 0.95rem;
+        }
+        input, select {
+            width: 100%; padding: 1rem 1.3rem;
+            border: 2px solid rgba(255, 255, 255, 0.12);
+            border-radius: 14px;
+            background: rgba(0, 0, 0, 0.25);
+            color: white; font-size: 1.05rem;
+            transition: all 0.3s ease; font-family: inherit;
+        }
+        input:focus, select:focus {
+            outline: none; border-color: var(--sage);
+            box-shadow: 0 0 25px rgba(82, 183, 136, 0.25);
+            background: rgba(0, 0, 0, 0.35);
+        }
+        input::placeholder { color: rgba(255, 255, 255, 0.4); }
+        select option { background: #0d1b2a; color: white; }
+        .submit-btn {
+            width: 100%; padding: 1.3rem;
+            background: linear-gradient(135deg, var(--moss-green), var(--sage));
+            border: none; border-radius: 14px;
+            color: white; font-size: 1.2rem;
+            font-weight: 800; cursor: pointer;
+            position: relative; overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 12px 35px rgba(45, 106, 79, 0.4);
+            z-index: 1; margin-top: 1rem; letter-spacing: 1px;
+        }
+        .submit-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 18px 45px rgba(45, 106, 79, 0.5);
+        }
+        .submit-btn:active { transform: translateY(0) scale(0.98); }
+        .submit-btn::before {
+            content: ''; position: absolute;
+            top: 50%; left: 50%;
+            width: 0; height: 0; border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        .submit-btn:active::before { width: 400px; height: 400px; }
+
+        .success-message {
+            display: none; text-align: center;
+            padding: 2rem;
+            animation: success-pop 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative; z-index: 1;
+        }
+        .success-message.active { display: block; }
+        @keyframes success-pop {
+            0% { opacity: 0; transform: scale(0.5) rotate(-5deg); }
+            70% { transform: scale(1.05) rotate(1deg); }
+            100% { opacity: 1; transform: scale(1) rotate(0); }
+        }
+        .success-icon { font-size: 5rem; margin-bottom: 1.5rem;
+            animation: bounce 1.2s ease infinite; display: inline-block;
+        }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+        .success-title { font-size: 2rem; color: var(--gold); margin-bottom: 1rem; font-weight: 800; }
+        .success-text { color: #d0d0d0; font-size: 1.1rem; line-height: 1.7; }
+        .success-text strong { color: var(--warm-amber); }
+
+        footer {
+            text-align: center; padding: 4rem 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            margin-top: 4rem; position: relative; z-index: 1;
+        }
+        .footer-text { color: rgba(255, 255, 255, 0.5); font-size: 0.95rem; }
+        .footer-heart { color: var(--clay); animation: heartbeat 1.5s ease infinite; display: inline-block; }
+        @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.3); } }
+        .organizer { color: var(--sage); font-weight: 700; }
+
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-40px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.8rem; }
+            .hero { grid-template-columns: 1fr; gap: 2rem; }
+            .hero-image { order: -1; }
+            .hero-image img { height: 300px; }
+            .lifebook-grid { grid-template-columns: repeat(2, 1fr); }
+            .values-grid { gap: 2rem; }
+            .signup-card { padding: 2rem; }
+            .gallery-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+    <div class="bg-orb orb-3"></div>
+    <div class="particles" id="particles"></div>
+    <div class="wave-container">
+        <div class="wave"></div>
+        <div class="wave"></div>
+    </div>
+
+    <div class="content">
+        <header>
+            <div class="location-badge">📍 Taastrup Medborgerhus</div>
+            <h1>Højeskole - om livet</h1>
+            <p class="subtitle">Ti møder om at leve mere bevidst og fuldt</p>
+        </header>
+
+        <section class="hero">
+            <div class="hero-content">
+                <h2>Tag del i dit eget liv</h2>
+                <p>
+                    Inspireret af den danske højskoletradition inviterer vi til ti samværsfulde møder 
+                    om livets vigtigste temaer. Et rum for refleksion, fællesskab og personlig vækst.
+                    <span class="highlight">Her mødes vi som ligeværdige</span> – med nysgerrighed, åbenhed og respekt.
+                </p>
+                <div class="time-badge">
+                    <span>🕐</span>
+                    <span>10 møder af ca. 2 timer</span>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="https://kimi-web-img.moonshot.cn/img/images.squarespace-cdn.com/86c6fb77588d2ef89bed418a8e47b3c29dd69d85.jpg" alt="Mennesker i cirkel der taler sammen">
+                <div class="image-caption">
+                    🕯️ Samvær, nærvær og ægte samtale
+                </div>
+            </div>
+        </section>
+
+        <section class="info-section">
+            <div class="info-grid">
+                <div class="info-card">
+                    <span class="card-icon">📅</span>
+                    <div class="card-title">Hvornår</div>
+                    <div class="card-info">10 møder</div>
+                </div>
+                <div class="info-card">
+                    <span class="card-icon">📍</span>
+                    <div class="card-title">Hvor</div>
+                    <div class="card-info">Taastrup Medborgerhus</div>
+                </div>
+                <div class="info-card">
+                    <span class="card-icon">⏱️</span>
+                    <div class="card-title">Varighed</div>
+                    <div class="card-info">Ca. 2 timer</div>
+                </div>
+                <div class="info-card">
+                    <span class="card-icon">👥</span>
+                    <div class="card-title">Arrangør</div>
+                    <div class="card-info">Anders Heebøll</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="lifebook-section">
+            <h2 class="section-title">De 10 livsområder vi udforsker</h2>
+            <p class="lifebook-intro">
+                Hvert møde kredser om et centralt tema i dit liv. Gennem samtale, øvelser og fælles refleksion 
+                skaber vi rum for indsigt og forandring.
+            </p>
+            <div class="lifebook-grid">
+                <div class="lifebook-item">
+                    <span class="lifebook-icon">💚</span>
+                    <div class="lifebook-title">Sundhed</div>
+                    <div class="lifebook-desc">Krop, velvære og balance</div>
+                </div>
+                <div class="lifebook-item">
+                    <span class="lifebook-icon">🧠</span>
+                    <div class="lifebook-title">Intellektuel</div>
+                    <div class="lifebook-desc">Læring, nysgerrighed og viden</div>
+                </div>
+                <div class="lifebook-item">
+                    <span class="lifebook-icon">💙</span>
+                    <div class="lifebook-title">Følelser</div>
+                    <div class="lifebook-desc">Selvindsigt og emotional intelligens</div>
+                </div>
+                <div class="lifebook-item">
+                    <span class="lifebook-icon">⭐</span>
+                    <div class="lifebook-title">Rollemodel</div>
+                    <div class="lifebook-desc">At inspirere og lede ved eksempel</div>
+                </div>
+                <div class="lifebook-item">
+                    <span class="lifebook-icon">🕯️</span>
+                    <div class="lifebook-title">Spirituel</div>
+                    <div class="lifebook-desc">Mening, tro og indre ro</div>
+                </div>
+                <div class="lifebook-item">
+                    <span class="lifebook-icon">🤝</span>
+                    <div class="lifebook-title">Social</div>
+                    <div class="lifebook-desc">Fællesskab og relationer</div>
+                </div>
+                <div class="lifebook-item">
+                    <span class="lifebook-icon">❤️</span>
+                    <div class="lifebook-title">Kærlighed</div>
+                    <div class="lifebook-desc">Nærhed, relationer og nærvær</div>
+                </div>
+                <div class="lifebook-item">
+                    <span class="lifebook-icon">💼</span>
+                    <div class="lifebook-title">Karriere</div>
+                    <div class="lifebook-desc">Formål, arbejde og passion</div>
+                </div>
+                <div class="lifebook-item">
+                    <span class="lifebook-icon">💰</span>
+                    <div class="lifebook-title">Finanser</div>
+                    <div class="lifebook-desc">Økonomi og frihed</div>
+                </div>
+                <div class="lifebook-item">
+                    <span class="lifebook-icon">🌍</span>
+                    <div class="lifebook-title">Omgivelser</div>
+                    <div class="lifebook-desc">Hjem, natur og miljø</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="values-section">
+            <h2 class="section-title">Danske højskoleværdier</h2>
+            <p class="lifebook-intro">
+                Vi tror på dannelse for livet – ikke bare for karrieren. 
+                Inspireret af Grundtvig skaber vi et rum hvor stemmen tæller, 
+                fællesskabet styrker og livet fordybes.
+            </p>
+            <div class="values-grid">
+                <div class="value-item">
+                    <div class="value-circle">🤝</div>
+                    <span class="value-text">Fællesskab</span>
+                </div>
+                <div class="value-item">
+                    <div class="value-circle">📖</div>
+                    <span class="value-text">Dannelse</span>
+                </div>
+                <div class="value-item">
+                    <div class="value-circle">🗣️</div>
+                    <span class="value-text">Demokrati</span>
+                </div>
+                <div class="value-item">
+                    <div class="value-circle">🕊️</div>
+                    <span class="value-text">Frihed</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="gallery-section">
+            <h2 class="section-title">Stemning fra vores møder</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://kimi-web-img.moonshot.cn/img/www.bosei.dk/dcb5f689d924f7159a0b8c4b19f85bf56d4f207d.jpg" alt="Fællesskab på højskole">
+                    <div class="gallery-caption">
+                        🍳 Fællesskab i praksis
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://kimi-web-img.moonshot.cn/img/thumbs.dreamstime.com/d13550064a2230f306a4d9bd73c78a80a9b8dfb6.jpg" alt="Kreative workshops">
+                    <div class="gallery-caption">
+                        🎨 Kreativt samvær og fordybelse
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://kimi-web-img.moonshot.cn/img/thumbs.dreamstime.com/c77d28b91b896f4b40b2a5d3409963cb8535a87b.jpg" alt="Pottery workshop">
+                    <div class="gallery-caption">
+                        👐 Læring gennem hænderne
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="signup-section" id="tilmelding">
+            <div class="signup-card">
+                <div id="form-container">
+                    <h2 class="signup-title">🎓 Tilmeld dig Højeskolen</h2>
+                    <form id="signupForm" onsubmit="handleSignup(event)">
+                        <div class="form-group">
+                            <label for="name">Fulde navn *</label>
+                            <input type="text" id="name" name="name" required placeholder="Dit fulde navn">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" required placeholder="din@email.dk">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Telefon</label>
+                            <input type="tel" id="phone" name="phone" placeholder="+45 12 34 56 78">
+                        </div>
+                        <div class="form-group">
+                            <label for="age">Aldersgruppe *</label>
+                            <select id="age" name="age" required>
+                                <option value="">Vælg aldersgruppe</option>
+                                <option value="18-25">18-25 år</option>
+                                <option value="26-35">26-35 år</option>
+                                <option value="36-50">36-50 år</option>
+                                <option value="51+">51+ år</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="interest">Hvad tiltrækker dig mest? (valgfri)</label>
+                            <input type="text" id="interest" name="interest" placeholder="Et eller flere temaer">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Besked (valgfri)</label>
+                            <input type="text" id="message" name="message" placeholder="Spørgsmål eller kommentarer">
+                        </div>
+                        <button type="submit" class="submit-btn" id="submitBtn">
+                            Send tilmelding
+                        </button>
+                    </form>
+                </div>
+                <div class="success-message" id="successMessage">
+                    <div class="success-icon">🎊</div>
+                    <h3 class="success-title">Tak for din tilmelding!</h3>
+                    <p class="success-text">
+                        Vi har sendt en bekræftelse til din email. Vi glæder os til at møde dig!<br><br>
+                        <strong>Husk:</strong> Ti livsforandrende møder i Taastrup Medborgerhus
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p class="footer-text">
+                Højeskole - om livet • Skabt med <span class="footer-heart">❤️</span> for dannelse og fællesskab
+            </p>
+            <p class="footer-text" style="margin-top: 0.8rem; font-size: 0.85rem;">
+                Arrangør: <span class="organizer">Anders Heebøll</span> • Spørgsmål? Skriv til <strong style="color: var(--sage)">oejet@hotmail.com</strong>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        const pc = document.getElementById('particles');
+        for(let i=0;i<30;i++){
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.style.left = Math.random()*100+'%';
+            p.style.animationDuration = (Math.random()*20+15)+'s';
+            p.style.animationDelay = Math.random()*20+'s';
+            p.style.opacity = Math.random()*0.4+0.2;
+            pc.appendChild(p);
+        }
+
+        function handleSignup(e){
+            e.preventDefault();
+            const formContainer = document.getElementById('form-container');
+            const successMessage = document.getElementById('successMessage');
+            const submitBtn = document.getElementById('submitBtn');
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+
+            submitBtn.innerHTML = 'Sender...';
+            submitBtn.disabled = true;
+
+            const emailBody = `Ny tilmelding til Højeskole - om livet:%0D%0A%0D%0ANavn: ${encodeURIComponent(data.name)}%0D%0AEmail: ${encodeURIComponent(data.email)}%0D%0ATelefon: ${encodeURIComponent(data.phone||'Ikke angivet')}%0D%0AAlder: ${encodeURIComponent(data.age)}%0D%0AInteresse: ${encodeURIComponent(data.interest||'Ikke angivet')}%0D%0ABesked: ${encodeURIComponent(data.message||'Ingen')}%0D%0A%0D%0ATilmeldt: ${new Date().toLocaleString('da-DK')}`;
+
+            setTimeout(()=>{
+                window.location.href = `mailto:oejet@hotmail.com?subject=Tilmelding til Højeskole - om livet - ${encodeURIComponent(data.name)}&body=${emailBody}`;
+                formContainer.style.display = 'none';
+                successMessage.classList.add('active');
+                startConfetti();
+            }, 1000);
+        }
+
+        function startConfetti(){
+            const canvas = document.createElement('canvas');
+            canvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999';
+            document.body.appendChild(canvas);
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const colors = ['#1B4332', '#2D6A4F', '#52B788', '#D4A373', '#BC6C25', '#E76F51'];
+            const pieces = [];
+            for(let i=0;i<150;i++){
+                pieces.push({
+                    x: Math.random()*canvas.width,
+                    y: Math.random()*canvas.height - canvas.height,
+                    size: Math.random()*10+5,
+                    color: colors[Math.floor(Math.random()*colors.length)],
+                    speed: Math.random()*4+2,
+                    angle: Math.random()*360,
+                    rotation: Math.random()*10-5,
+                    opacity: Math.random()*0.5+0.5
+                });
+            }
+            let animationId;
+            function animate(){
+                ctx.clearRect(0,0,canvas.width,canvas.height);
+                let active = false;
+                pieces.forEach(p=>{
+                    p.y += p.speed;
+                    p.angle += p.rotation;
+                    p.x += Math.sin(p.angle*0.05)*2;
+                    if(p.y < canvas.height){
+                        active = true;
+                        ctx.save();
+                        ctx.globalAlpha = p.opacity;
+                        ctx.translate(p.x,p.y);
+                        ctx.rotate(p.angle*Math.PI/180);
+                        ctx.fillStyle = p.color;
+                        ctx.fillRect(-p.size/2,-p.size/2,p.size,p.size);
+                        ctx.restore();
+                    }
+                });
+                if(active) animationId = requestAnimationFrame(animate);
+                else if(canvas.parentNode) canvas.parentNode.removeChild(canvas);
+            }
+            animate();
+            setTimeout(()=>{
+                cancelAnimationFrame(animationId);
+                if(canvas.parentNode) canvas.parentNode.removeChild(canvas);
+            }, 4000);
+        }
+
+        const observer = new IntersectionObserver((entries)=>{
+            entries.forEach(entry=>{
+                if(entry.isIntersecting){
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, {threshold: 0.1});
+
+        document.querySelectorAll('.info-card, .lifebook-item, .gallery-item').forEach(el=>{
+            el.style.cssText = 'opacity:0;transform:translateY(40px);transition:opacity 0.8s ease,transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
